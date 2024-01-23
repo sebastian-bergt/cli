@@ -225,17 +225,17 @@ export async function buildAndExtendDockerCompose(configWithRaw: SubstitutedConf
 		if (Object.keys(featureBuildInfo.buildArgs).length > 0 || params.buildKitVersion) {
 			buildOverrideContent += '      args:\n';
 			if (params.buildKitVersion) {
-				buildOverrideContent += '        - BUILDKIT_INLINE_CACHE=1\n';
+				buildOverrideContent += '        BUILDKIT_INLINE_CACHE: 1\n';
 			}
 			for (const buildArg in featureBuildInfo.buildArgs) {
-				buildOverrideContent += `        - ${buildArg}=${featureBuildInfo.buildArgs[buildArg]}\n`;
+				buildOverrideContent += `        ${buildArg}: ${featureBuildInfo.buildArgs[buildArg]}\n`;
 			}
 		}
 
 		if (Object.keys(featureBuildInfo.buildKitContexts).length > 0) {
 			buildOverrideContent += '      additional_contexts:\n';
 			for (const buildKitContext in featureBuildInfo.buildKitContexts) {
-				buildOverrideContent += `        - ${buildKitContext}=${featureBuildInfo.buildKitContexts[buildKitContext]}\n`;
+				buildOverrideContent += `        ${buildKitContext}: ${featureBuildInfo.buildKitContexts[buildKitContext]}\n`;
 			}
 		}
 	}
